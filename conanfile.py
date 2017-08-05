@@ -17,18 +17,9 @@ class FfmpegConan(ConanFile):
         self.run("cd FFmpeg")
 
     def build(self):
-
-        self.run('cmake hello %s' % cmake.command_line)
-        self.run("./configure --pkg-config-flags="--static" --extra-cflags="-I$HOME/ffmpeg_build/include" 
-                 --extra-ldflags="-L$HOME/ffmpeg_build/lib"
-                 --bindir="$HOME/bin"
-                 --enable-gpl
-                 --enable-libass
-                 --enable-libfdk-aac
-                 --enable-libfreetype
-                 --enable-libtheora                 
-                 --enable-nonfree")
-
+        self.run("./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm --disable-ffserver --disable-doc --disable-bzlib --disable-iconv --disable-zlib")
+        self.run("make")
+        
     def package(self):
         self.copy("*.h", dst="include", src="ffmpeg")
         self.copy("*.dll", dst="bin", keep_path=False)
