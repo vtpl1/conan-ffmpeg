@@ -20,4 +20,14 @@ class FfmpegConan(ConanFile):
             tools.run_in_windows_bash(self, cmd)
         else:
             self.run(cmd)
-
+    
+    def source(self):
+        zip_name = "ffmpeg.zip"
+        #download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
+        download("https://github.com/FFmpeg/FFmpeg/archive/n%s.zip" % self.version, zip_name)
+        unzip(zip_name)
+        shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
+        os.unlink(zip_name)
+        if self.settings.os=="Linux":
+            self.run_bash("chmod +x ffmpeg/configure")
+            self.run_bash("find ffmpeg -name '*.sh' -exec chmod +x {} \;");
