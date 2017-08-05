@@ -21,5 +21,7 @@ fi
 
 pip install conan --upgrade
 pip install conan_package_tools
+apt-get update
+apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev libtheora-dev libtool libvorbis-dev pkg-config texinfo wget zlib1g-dev
 
 conan user
