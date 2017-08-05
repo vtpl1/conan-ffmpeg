@@ -14,7 +14,6 @@ class FfmpegConan(ConanFile):
                 "build_type" : ["Release", "Debug"], 
                 "arch" : ["x86", "x86_64"] }
     default_options = "os=Linux"
-    default_options = "arch=x86_64"
     generators = "cmake"
     
     def run_bash(self, cmd):
