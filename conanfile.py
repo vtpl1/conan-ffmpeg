@@ -15,9 +15,10 @@ class FfmpegConan(ConanFile):
     def source(self):
         self.run("git clone --depth 1 --branch release/3.3 https://github.com/FFmpeg/FFmpeg.git")
         self.run("cd FFmpeg")
+        self.run("chmod +x configure")
 
     def build(self):
-        self.run("chmod +x configure")
+        
         self.run("./configure")
         #self.run("./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm --disable-ffserver --disable-doc --disable-bzlib --disable-iconv --disable-zlib")
         self.run("make")
