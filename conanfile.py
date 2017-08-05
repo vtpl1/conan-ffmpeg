@@ -31,3 +31,15 @@ class FfmpegConan(ConanFile):
         if self.settings.os=="Linux":
             self.run_bash("chmod +x ffmpeg/configure")
             self.run_bash("find ffmpeg -name '*.sh' -exec chmod +x {} \;");
+
+    def build(self):
+        with tools.chdir("ffmpeg") :
+            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
+            configure_cmd += " --disable-ffserver --disable-doc"
+            configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
+            if self.settings.arch=="x86_64":
+                configure_cmd += " --arch=amd64"
+            if self.settings.os=="Windows":
+                configure_cmd += " --toolchain=msvc"
+            self.run_bash(configure_cmd)
+            self.run_bash("make")
