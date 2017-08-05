@@ -1,6 +1,4 @@
-version: 1.0.{build}
-    platform:
-      - x64
+build: false
 
 environment:
     PYTHON: "C:\\Python27"
