@@ -14,6 +14,7 @@ class FfmpegConan(ConanFile):
                 "build_type" : ["Release", "Debug"], 
                 "arch" : ["x86", "x86_64"] }
     default_options = "os=Linux"
+    default_options = "arch=x86_64"
     generators = "cmake"
     
     def run_bash(self, cmd):
@@ -35,17 +36,11 @@ class FfmpegConan(ConanFile):
         
     def build(self):
         with tools.chdir("ffmpeg") :
-            configure_cmd = "./configure 
-            --enable-nvenc --enable-pic 
-            --enable-libmfx 
-            --enable-cuvid 
-            --enable-asm 
-            --enable-yasm 
-            --disable-ffserver 
-            --disable-doc 
-            --disable-bzlib 
-            --disable-iconv 
-            --disable-zlib
+            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
+            configure_cmd += " --disable-ffserver --disable-doc"
+            configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
+            if self.settings.arch=="x86_64":
+                configure_cmd += " --arch=amd64"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
             self.run_bash(configure_cmd)
