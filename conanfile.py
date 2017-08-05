@@ -1,20 +1,20 @@
-from conans import ConanFile, CMake, tools, VisualStudioBuildEnvironment
+from conans import ConanFile, tools, VisualStudioBuildEnvironment
 from conans.tools import download, unzip
 import os
 import shutil
 
 class FfmpegConan(ConanFile):
-    name = "Ffmpeg"
+    name = "ffmpeg"
     version = "3.3.3"
     description = "Recipe for ffmpeg library"
     license = "MIT/X Consortium license. Check file COPYING of the library"
     url = "https://github.com/vtpl1/conan-ffmpeg"
-    settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    settings = {"os": ["Windows", "Linux"], 
+                "compiler" : ["Visual Studio", "gcc"], 
+                "build_type" : ["Release", "Debug"], 
+                "arch" : ["x86", "x86_64"]}
     generators = "cmake"
-#    exports = ['FindFfmpeg.cmake']
-
+    
     def run_bash(self, cmd):
         if self.settings.os == "Windows":
             tools.run_in_windows_bash(self, cmd)
@@ -37,8 +37,6 @@ class FfmpegConan(ConanFile):
             configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
             configure_cmd += " --disable-ffserver --disable-doc"
             configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
-            if self.settings.arch=="x86_64":
-                configure_cmd += " --arch=amd64"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
             self.run_bash(configure_cmd)
