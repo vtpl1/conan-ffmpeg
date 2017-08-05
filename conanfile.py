@@ -11,8 +11,7 @@ class FfmpegConan(ConanFile):
     url = "https://github.com/vtpl1/conan-ffmpeg"
     settings = {"os": ["Windows", "Linux"], 
                 "compiler" : ["Visual Studio", "gcc"], 
-                "build_type" : ["Release", "Debug"], 
-                "arch" : ["x86_64"]}
+                "build_type" : ["Release", "Debug"]}
     generators = "cmake"
     
     def run_bash(self, cmd):
