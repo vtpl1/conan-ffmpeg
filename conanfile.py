@@ -1,4 +1,4 @@
-from conans import ConanFile, tools, VisualStudioBuildEnvironment, AutoToolsBuildEnvironment
+from conans import ConanFile, tools, VisualStudioBuildEnvironment
 from conans.tools import download, unzip
 import os
 import shutil
@@ -34,20 +34,18 @@ class FfmpegConan(ConanFile):
         
     def build(self):
         with tools.chdir("ffmpeg") :
-            env_build = AutoToolsBuildEnvironment(self)
-            with tools.environment_append(env_build.vars):
-                configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --disable-yasm"
-                configure_cmd += " --disable-ffserver --disable-doc"
-                configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
-                if self.settings.arch=="x86_64":
-                    configure_cmd += " --arch=amd64"
-                if self.settings.os=="Windows":
-                    configure_cmd += " --toolchain=msvc"
-                self.run_bash(configure_cmd)
-                if self.settings.os == "Windows":
-                    self.run_bash("nmake")
-                else:
-                    self.run_bash("make")
+            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --disable-yasm"
+            configure_cmd += " --disable-ffserver --disable-doc"
+            configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
+            if self.settings.arch=="x86_64":
+                configure_cmd += " --arch=amd64"
+            if self.settings.os=="Windows":
+                configure_cmd += " --toolchain=msvc"
+            self.run_bash(configure_cmd)
+            if self.settings.os == "Windows":
+                self.run_bash("make")
+            else:
+                self.run_bash("make")
             
     def package(self):
         self.copy("*.h", dst="include/libavcodec", src="ffmpeg/libavcodec")
