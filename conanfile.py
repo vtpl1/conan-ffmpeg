@@ -34,18 +34,14 @@ class FfmpegConan(ConanFile):
         
     def build(self):
         with tools.chdir("ffmpeg") :
-            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --disable-yasm"
-            configure_cmd += " --disable-ffserver --disable-doc"
-            configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
-            if self.settings.arch=="x86_64":
-                configure_cmd += " --arch=amd64"
+            configure_cmd = "./configure --disable-doc --disable-programs --disable-static --enable-shared"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
+            if self.settings.build_type == "Debug":
+                configure_cmd += " --enable-debug" 
             self.run_bash(configure_cmd)
-            if self.settings.os == "Windows":
-                self.run_bash("make")
-            else:
-                self.run_bash("make")
+            self.run_bash("make")
+            
             
     def package(self):
         self.copy("*.h", dst="include/libavcodec", src="ffmpeg/libavcodec")
