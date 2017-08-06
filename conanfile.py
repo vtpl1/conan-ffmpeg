@@ -3,16 +3,18 @@ from conans.tools import download, unzip
 import os
 import shutil
 
+
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
-    version = "3.3.3"
-    description = "Recipe for ffmpeg library"
-    license = "MIT/X Consortium license. Check file COPYING of the library"
-    url = "https://github.com/vtpl1/conan-ffmpeg"
+    description = "Conan package for FFmpeg on Windows."
+    version = "3.2.4"
+    license = "MIT"
+    url = "https://bitbucket.org/genvidtech/conan-ffmpeg"
+    author = "Robert Leclair (rleclair@genvidtech.com)"
     settings = {"os": ["Windows", "Linux"], 
                 "compiler" : ["Visual Studio", "gcc"], 
                 "build_type" : ["Release", "Debug"], 
-                "arch" : ["x86", "x86_64"]}
+                "arch" : ["x86", "x86_64"] }
     generators = "cmake"
 
     def run_bash(self, cmd):
@@ -23,7 +25,6 @@ class FfmpegConan(ConanFile):
 
     def source(self):
         zip_name = "ffmpeg.zip"
-        #download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
         download("https://github.com/FFmpeg/FFmpeg/archive/n%s.zip" % self.version, zip_name)
         unzip(zip_name)
         shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
@@ -31,18 +32,17 @@ class FfmpegConan(ConanFile):
         if self.settings.os=="Linux":
             self.run_bash("chmod +x ffmpeg/configure")
             self.run_bash("find ffmpeg -name '*.sh' -exec chmod +x {} \;");
-        
+
     def build(self):
         with tools.chdir("ffmpeg") :
-            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
-            configure_cmd += " --disable-ffserver --disable-doc"
-            configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
-            if self.settings.arch=="x86_64":
-                configure_cmd += " --arch=amd64"
+            configure_cmd = "./configure --disable-doc --disable-programs --disable-static --enable-shared"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
+            if self.settings.build_type == "Debug":
+                configure_cmd += " --enable-debug" 
             self.run_bash(configure_cmd)
             self.run_bash("make")
+ 
     def package(self):
         self.copy("*.h", dst="include/libavcodec", src="ffmpeg/libavcodec")
         self.copy("*.h", dst="include/libavfilter", src="ffmpeg/libavfilter")
