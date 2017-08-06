@@ -10,8 +10,11 @@ environment:
     CONAN_LOGIN_USERNAME: "vtpl1"
     CONAN_CHANNEL: "stable"
     VS150COMNTOOLS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\"
+    CONAN_UPLOAD: "https://api.bintray.com/vtpl1/conan-ffmpeg"
+    CONAN_STABLE_BRANCH_PATTERN: "release/*"
     
     matrix:
+        - MINGW_CONFIGURATIONS: "4.9@x86_64@seh@posix, 4.9@x86_64@sjlj@posix, 4.9@x86@sjlj@posix, 4.9@x86@dwarf2@posix"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           CONAN_VISUAL_VERSIONS: 12
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
