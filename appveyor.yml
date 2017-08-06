@@ -10,7 +10,7 @@ environment:
     CONAN_LOGIN_USERNAME: "vtpl1"
     CONAN_CHANNEL: "stable"
     VS150COMNTOOLS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\"
-    CONAN_UPLOAD: "https://api.bintray.com/vtpl1/conan-ffmpeg"
+    CONAN_UPLOAD: "https://api.bintray.com/conan/vtpl1/conan-ffmpeg"
     CONAN_STABLE_BRANCH_PATTERN: "release/*"
     
     matrix:
