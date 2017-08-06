@@ -44,7 +44,10 @@ class FfmpegConan(ConanFile):
                 if self.settings.os=="Windows":
                     configure_cmd += " --toolchain=msvc"
                 self.run_bash(configure_cmd)
-                self.run_bash("make")
+                if self.settings.os == "Windows":
+                    self.run_bash("nmake")
+                else:
+                    self.run_bash("make")
             
     def package(self):
         self.copy("*.h", dst="include/libavcodec", src="ffmpeg/libavcodec")
