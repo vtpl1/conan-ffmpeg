@@ -28,4 +28,4 @@ install:
   - sh echo %PATH%
   
 test_script:
-  - python build.py
+  - sh python build.py
