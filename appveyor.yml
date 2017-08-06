@@ -16,11 +16,10 @@ environment:
     matrix:
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           CONAN_VISUAL_VERSIONS: 12
-          CONAN_ARCHS: "x86_64"
-          CONAN_CURRENT_PAGE: "x86_64"
+          CONAN_CURRENT_PAGE: x86_64
 
 install:
-  - set PATH=%PATH%;%PYTHON%/Scripts/;C:/msys64
+  - set PATH=%PATH%;%PYTHON%/Scripts/;C:\\msys64
   - echo %PATH%
   - pip.exe install conan --upgrade
   - pip.exe install conan_package_tools
