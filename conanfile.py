@@ -34,7 +34,7 @@ class FfmpegConan(ConanFile):
         
     def build(self):
         with tools.chdir("ffmpeg") :
-            configure_cmd = "./configure --disable-doc --disable-programs --disable-static --enable-shared"
+            configure_cmd = "./configure --disable-doc --disable-programs --disable-static --enable-shared --disable-yasm"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
             if self.settings.build_type == "Debug":
