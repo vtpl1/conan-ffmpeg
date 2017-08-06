@@ -36,7 +36,7 @@ class FfmpegConan(ConanFile):
         with tools.chdir("ffmpeg") :
             env_build = AutoToolsBuildEnvironment(self)
             with tools.environment_append(env_build.vars):
-                configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
+                configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --disable-yasm"
                 configure_cmd += " --disable-ffserver --disable-doc"
                 configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
                 if self.settings.arch=="x86_64":
