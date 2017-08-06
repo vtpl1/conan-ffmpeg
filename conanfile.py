@@ -41,6 +41,7 @@ class FfmpegConan(ConanFile):
                 configure_cmd += " --arch=amd64"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
+            configure_cmd = ""
             self.run_bash(configure_cmd)
             self.run_bash("make")
     def package(self):
