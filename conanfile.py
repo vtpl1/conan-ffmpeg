@@ -12,7 +12,7 @@ class FfmpegConan(ConanFile):
     settings = {"os": ["Windows", "Linux"], 
                 "compiler" : ["Visual Studio", "gcc"], 
                 "build_type" : ["Release", "Debug"], 
-                "arch" : ["x86_64"]}
+                "arch" : ["x86", "x86_64"]}
     generators = "cmake"
 
     def run_bash(self, cmd):
