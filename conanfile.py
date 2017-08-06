@@ -16,10 +16,7 @@ class FfmpegConan(ConanFile):
     generators = "cmake"
 
     def run_bash(self, cmd):
-        if self.settings.os == "Windows":
-            tools.run_in_windows_bash(self, cmd)
-        else:
-            self.run(cmd)
+        self.run(cmd)
 
     def source(self):
         zip_name = "ffmpeg.zip"
@@ -34,14 +31,13 @@ class FfmpegConan(ConanFile):
         
     def build(self):
         with tools.chdir("ffmpeg") :
-            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
+            configure_cmd = ".\configure --enable-nvenc --enable-pic --enable-cuvid --enable-asm --enable-yasm"
             configure_cmd += " --disable-ffserver --disable-doc"
             configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
             if self.settings.arch=="x86_64":
                 configure_cmd += " --arch=amd64"
             if self.settings.os=="Windows":
                 configure_cmd += " --toolchain=msvc"
-            configure_cmd = ""
             self.run_bash(configure_cmd)
             self.run_bash("make")
     def package(self):
