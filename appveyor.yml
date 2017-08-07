@@ -19,9 +19,8 @@ environment:
           CONAN_ARCHS: x86_64
 
 install:
-  - set PATH=%PATH%;%PYTHON%/Scripts/;C:\msys64\
+  - set PATH=%PATH%;%PYTHON%/Scripts/;C:\msys64\;C:\msys64\usr\bin\
   - echo %PATH%
-  - msys2.exe
   - make
   #- pip.exe install conan --upgrade
   #- pip.exe install conan_package_tools
