@@ -24,10 +24,13 @@ class FfmpegConan(ConanFile):
     def source(self):
         zip_name = "ffmpeg.zip"
         #download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
-        download("https://github.com/FFmpeg/FFmpeg/archive/n%s.zip" % self.version, zip_name)
-        unzip(zip_name)
-        shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
-        os.unlink(zip_name)
+        #download("https://github.com/FFmpeg/FFmpeg/archive/n%s.zip" % self.version, zip_name)
+        #unzip(zip_name)
+        #shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
+        #os.unlink(zip_name)
+        
+        self.run("git config --global core.autocrlf false")
+        self.run("git clone --single-branch https://github.com/FFmpeg/FFmpeg.git ffmpeg") 
         if self.settings.os=="Linux":
             self.run_bash("chmod +x ffmpeg/configure")
             self.run_bash("find ffmpeg -name '*.sh' -exec chmod +x {} \;");
