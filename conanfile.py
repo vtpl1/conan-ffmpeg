@@ -50,7 +50,7 @@ class FfmpegConan(ConanFile):
             self.run_bash(configure_cmd)
             if self.settings.os=="Windows":
                 self.run_bash("nmake")
-            else
+            else:
                 self.run_bash("make")
             
             
