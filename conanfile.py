@@ -5,7 +5,7 @@ import shutil
 
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
-    version = "3.2.4"
+    version = "3.3.3"
     description = "Recipe for ffmpeg library"
     license = "MIT/X Consortium license. Check file COPYING of the library"
     url = "https://github.com/vtpl1/conan-ffmpeg"
