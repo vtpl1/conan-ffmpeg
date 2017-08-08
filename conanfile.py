@@ -39,8 +39,8 @@ class FfmpegConan(ConanFile):
                 configure_cmd += " --toolchain=msvc"
             if self.settings.build_type == "Debug":
                 configure_cmd += " --enable-debug" 
-            self.run_bash(configure_cmd)
             self.run_bash("make")
+            self.run_bash(configure_cmd)            
             
             
     def package(self):
