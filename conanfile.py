@@ -30,7 +30,7 @@ class FfmpegConan(ConanFile):
         #os.unlink(zip_name)
         
         self.run("git config --global core.autocrlf false")
-        self.run("git clone --single-branch https://github.com/FFmpeg/FFmpeg.git ffmpeg") 
+        self.run("git clone --single-branch -b release/3.3 https://github.com/FFmpeg/FFmpeg.git ffmpeg") 
         if self.settings.os=="Linux":
             self.run_bash("chmod +x ffmpeg/configure")
             self.run_bash("find ffmpeg -name '*.sh' -exec chmod +x {} \;");
@@ -48,7 +48,11 @@ class FfmpegConan(ConanFile):
             if self.settings.build_type == "Debug":
                 configure_cmd += " --enable-debug" 
             self.run_bash(configure_cmd)
-            self.run_bash("make")
+            if self.settings.os=="Windows":
+                self.run_bash("nmake")
+            else
+                self.run_bash("make")
+            
             
             
     def package(self):
