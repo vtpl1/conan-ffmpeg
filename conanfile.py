@@ -5,7 +5,7 @@ import shutil
 
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
-    version = "3.3.3"
+    version = "3.3"
     description = "Recipe for ffmpeg library"
     license = "MIT/X Consortium license. Check file COPYING of the library"
     url = "https://github.com/vtpl1/conan-ffmpeg"
@@ -24,13 +24,14 @@ class FfmpegConan(ConanFile):
     def source(self):
         zip_name = "ffmpeg.zip"
         #download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
-        #download("https://github.com/FFmpeg/FFmpeg/archive/n%s.zip" % self.version, zip_name)
-        #unzip(zip_name)
+        download("http://ffmpeg.org/releases/ffmpeg-3.3.tar.gz", zip_name)
+        unzip(zip_name)
         #shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
-        #os.unlink(zip_name)
+        shutil.move("ffmpeg-3.3", "ffmpeg")
+        os.unlink(zip_name)
         
-        self.run("git config --global core.autocrlf false")
-        self.run("git clone --single-branch -b release/3.3 https://github.com/FFmpeg/FFmpeg.git ffmpeg") 
+        #self.run("git config --global core.autocrlf false")
+        #self.run("git clone --single-branch -b release/3.3 https://github.com/FFmpeg/FFmpeg.git ffmpeg") 
         if self.settings.os=="Linux":
             self.run_bash("chmod +x ffmpeg/configure")
             self.run_bash("find ffmpeg -name '*.sh' -exec chmod +x {} \;");
