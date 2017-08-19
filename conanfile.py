@@ -5,7 +5,7 @@ import shutil
 
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
-    version = "3.3"
+    version = "3.3.3"
     description = "Recipe for ffmpeg library"
     license = "MIT/X Consortium license. Check file COPYING of the library"
     url = "https://github.com/vtpl1/conan-ffmpeg"
@@ -23,11 +23,11 @@ class FfmpegConan(ConanFile):
 
     def source(self):
         zip_name = "ffmpeg.zip"
-        #download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
-        download("http://ffmpeg.org/releases/ffmpeg-3.3.tar.gz", zip_name)
+        download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
+        #download("http://ffmpeg.org/releases/ffmpeg-3.3.tar.gz", zip_name)
         unzip(zip_name)
-        #shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
-        shutil.move("ffmpeg-3.3", "ffmpeg")
+        shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
+        #shutil.move("ffmpeg-3.3", "ffmpeg")
         os.unlink(zip_name)
         
         #self.run("git config --global core.autocrlf false")
@@ -42,6 +42,7 @@ class FfmpegConan(ConanFile):
             configure_cmd += " --enable-asm --disable-yasm"
             configure_cmd += " --disable-ffserver --disable-doc"
             configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
+            configure_cmd += " --extra-cflags=\"-DWIN32_LEAN_AND_MEAN\""
             if self.settings.arch=="x86_64":
                 configure_cmd += " --arch=amd64"
             if self.settings.os=="Windows":
