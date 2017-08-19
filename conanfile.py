@@ -23,8 +23,8 @@ class FfmpegConan(ConanFile):
 
     def source(self):
         zip_name = "ffmpeg.zip"
-        download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
-        #download("http://ffmpeg.org/releases/ffmpeg-3.3.tar.gz", zip_name)
+        #download("https://codeload.github.com/FFmpeg/FFmpeg/zip/n%s.zip" % self.version, zip_name)
+        download("https://github.com/FFmpeg/FFmpeg/archive/n%s.zip" % self.version, zip_name)
         unzip(zip_name)
         shutil.move("FFmpeg-n%s" % self.version, "ffmpeg")
         #shutil.move("ffmpeg-3.3", "ffmpeg")
