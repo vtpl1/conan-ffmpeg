@@ -51,7 +51,7 @@ class FfmpegConan(ConanFile):
                 configure_cmd += " --enable-debug" 
             self.run_bash(configure_cmd)
             if self.settings.os=="Windows":
-                self.run_bash("nmake")
+                self.run_bash("make")
             else:
                 self.run_bash("make")
             
