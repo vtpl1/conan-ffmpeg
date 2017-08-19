@@ -34,7 +34,7 @@ environment:
           CONAN_ARCHS: x86
 
 install:
-  - set PATH=%PATH%;%PYTHON%/Scripts/
+  - set PATH=%PATH%;%PYTHON%/Scripts/;C:/msys64
   - bash -lc "pacman -S --needed --noconfirm make cmake diffutils pkg-config"
   - pip.exe install conan --upgrade
   - pip.exe install conan_package_tools
