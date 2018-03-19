@@ -5,7 +5,7 @@ import shutil
 
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
-    version = "3.3.3"
+    version = "3.4"
     description = "Recipe for ffmpeg library"
     license = "MIT/X Consortium license. Check file COPYING of the library"
     url = "https://github.com/vtpl1/conan-ffmpeg"
@@ -38,7 +38,7 @@ class FfmpegConan(ConanFile):
         
     def build(self):
         with tools.chdir("ffmpeg") :
-            configure_cmd = "./configure --enable-nvenc --enable-pic --enable-cuvid --enable-nonfree"
+            configure_cmd = "./configure --enable-cuda --enable-nvenc --enable-cuvid --enable-libnpp --enable-nonfree --enable-pic"
             configure_cmd += " --enable-asm --disable-yasm"
             configure_cmd += " --disable-ffserver --disable-doc"
             configure_cmd += " --disable-bzlib --disable-iconv --disable-zlib"
