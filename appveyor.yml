@@ -5,7 +5,7 @@ environment:
     PYTHON_VERSION: "2.7.8"
     PYTHON_ARCH: "32"
 
-    CONAN_REFERENCE: "ffmpeg/3.3.3"
+    CONAN_REFERENCE: "ffmpeg/3.4"
     CONAN_USERNAME: "vtpl1"
     CONAN_LOGIN_USERNAME: "vtpl1"
     CONAN_CHANNEL: "stable"
@@ -37,6 +37,8 @@ install:
   - set PATH=%PATH%;%PYTHON%/Scripts/;
   - pip.exe install conan --upgrade
   - pip.exe install conan_package_tools
+  - conan remote add bintray https://api.bintray.com/conan/vtpl1/conan-ffmpeg
+  - conan user -p 32dbf86ae8d0bf54a00a5d6ca3542034cd0330b7 -r bintray vtpl1
   - conan user # It creates the conan data directory
   
   
