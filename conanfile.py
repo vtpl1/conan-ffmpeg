@@ -2,7 +2,6 @@ from conans import ConanFile, tools, VisualStudioBuildEnvironment
 from conans.tools import download, unzip
 import os
 import shutil
-
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
     version = "3.4"
